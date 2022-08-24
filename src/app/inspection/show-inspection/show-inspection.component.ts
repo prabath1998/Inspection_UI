@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { InspectionService } from 'src/app/inspection.service';
 
 @Component({
   selector: 'app-show-inspection',
@@ -7,9 +9,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowInspectionComponent implements OnInit {
 
-  constructor() { }
+  inspectionList$!:Observable<any[]>;
+  inspectionTypesList$!:Observable<any[]>;
+  inspectionTypesList:any =[];
+
+
+  //map to display data associate with foreigh keys
+  inspectionTypesMap:Map<number,string> = new Map();
+
+  constructor(private service:InspectionService) { }
 
   ngOnInit(): void {
+    this.inspectionList$ = this.service.getInspectionList();
   }
 
 }
